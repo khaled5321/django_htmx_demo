@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1 class="mx-auto prose mt-5 font-mono text-3xl border-b-4 rounded border-gray-300 w-fit">Create Contact</h1>
+<form hx-post="{% url 'home' %}" hx-target='#contact-list' method="POST" class="container gap-3 mx-auto flex flex-col justify-center items-center mt-5">
+    {% csrf_token %}
+
+    {% for field in form %}
+    <div class="flex items-center justify-evenly w-full md:px-52 px-12">
+        <div class="flex-1">{{ field.label_tag }}</div>
+        
+        <div class="">
+            <input type="{{ field.field.widget.input_type }}"
+            id="id_{{ field.name }}" name="{{field.name}}" 
+            class="form-input shadow rounded border-2 border-slate-400 focus:border-gray-900">
+        </div>
+        
+    </div>
+    {% endfor %}
+
+    <button type="submit" class="px-5 py-2 mt-5 bg-slate-200 active:opacity-50 transition-opacity shadow rounded border border-blue-300">Create</button>
+</form>
+<h1 class="mx-auto prose mt-5 font-mono text-3xl border-b-4 rounded border-gray-300 w-fit">Contacts</h1>
+<div id="contact-list" class="container mx-auto flex flex-col justify-center items-center mt-5">
+    {% include 'base/contact_list.html' %}
+</div>
+{% endblock %}

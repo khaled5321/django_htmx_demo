@@ -1,0 +1,32 @@
+{% if contacts %}
+<table class="prose w-full text-center table-fixed">
+    <thead>
+        <td class="border-r-2">Name</td>
+        <td>Phone Number</td>
+    </thead>
+    <tbody>
+        {% for contact in contacts %}
+        <tr>
+            <td class="px-0 border-r-2">
+                {{contact.name}}
+            </td>
+            <td class="px-0">
+                {{contact.phone_number}}
+            </td>
+            <td>
+                <button class="px-5 py-2 mt-5 bg-red-500 text-white active:opacity-50 transition-opacity shadow rounded border border-red-400"
+                hx-trigger="click"
+                hx-delete="{% url 'delete' contact.pk %}"
+                hx-target="#contact-list" 
+                hx-confirm="Are you sure you wish to delete?"
+                >
+                DELETE
+                </button>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% else %}
+<h2 class="prose prose-2xl">No Contacts</h2>
+{% endif %}

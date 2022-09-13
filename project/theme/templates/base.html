@@ -1,0 +1,28 @@
+{% load static tailwind_tags %}
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+    <title>Title</title>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta http-equiv="X-UA-Compatible" content="ie=edge">
+		<script src="https://unpkg.com/htmx.org@1.8.0" integrity="sha384-cZuAZ+ZbwkNRnrKi05G/fjBX+azI9DNOkNYysZ0I/X5ZFgsmMiBXgDZof30F5ofc" crossorigin="anonymous"></script>
+
+		{% tailwind_css %}
+	</head>
+
+	<body class="bg-gray-50 font-serif leading-normal tracking-normal">
+		<nav class="flex justify-center p-5 bg-gray-300">
+			<div class="container flex flex-row justify-center">
+				<h1>HTMX TUTORIAL</h1>
+			</div>
+		</nav>
+		{% block content %}
+		{% endblock %}
+		<script>
+			document.body.addEventListener('htmx:configRequest', (event) => {
+				event.detail.headers['X-CSRFToken'] = '{{ csrf_token }}'; //insert csrf token when performing AJAX request 
+			})
+		</script>
+	</body>
+</html>
